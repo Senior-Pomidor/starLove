@@ -2,7 +2,7 @@
 // import MenuItem from './MenuItem';
 import { useState, useEffect } from 'react';
 import CharactersItem from './CharactersItem';
-import {characters} from '../Table';
+// import {characters} from '../Table';
 
 // let characters = [
 //   {
@@ -713,21 +713,27 @@ import {characters} from '../Table';
   // }
 
 
-function CharactersList() {
-
-   const handleChangeFavorite () => {
-
+// значение по умолчанию [] чтобы не было ошибки, если ничего не передано в characters
+function CharactersList({ characters = [] }) {
+  // при добавлении/удалении из избранного,
+  // находим по id челика, по которому кликнули
+  // и меняем у него значение ключа favorite на то,
+  // что передали из компонента CharactersItem,
+  // т.е. на значение переменной isFavorite
+  const handleChangeFavorite = (id, isFavorite) => {
+    characters.find(item => item.id === id).favorite = isFavorite
   }
+
   return (
     <div>
       {characters.map((character) => (
         <CharactersItem
-        onChangeFavorite={handleChangeFavorite}
+          onChangeFavorite={(isFavorite) => handleChangeFavorite(character.id, isFavorite)}
           key={character.id}
           name={character.name}
           gender={character.gender}
           image={character.image}
-          favorite={false}
+          favorite={character.favorite}
         />
       ))}
     </div>

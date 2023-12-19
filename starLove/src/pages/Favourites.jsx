@@ -1,14 +1,17 @@
 import CharactersList from "../Components/CharactersList";
-
-
+import { characters } from '../Table';
 
 function Favourites() {
-    return ( <>
+    // выбираем только избранные
+    const favorites = characters.filter(item => item.favorite)
+
+    return (<>
         <div>Page Favourites</div>
 
-        <CharactersList />
-        
-        </> );
+        <CharactersList
+            characters={favorites}
+        />
+    </>);
 }
 
 export default Favourites;
